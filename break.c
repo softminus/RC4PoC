@@ -160,14 +160,15 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 
     for (mu = 0; mu <= 255; mu++)
     {
-    lambda [mu] = 0.0;
+
+        lambda [mu] = 0.0;
     
-    for (k = 0; k <= 255; k++)
-    {
-        bigNprime[mu][k] = st->bigN[which][mu ^ k];
-        lambda[mu] += (double) bigNprime[mu][k] * \
-            log( (double) probs->p[which][k] / (double) probs->total );
-    }
+        for (k = 0; k <= 255; k++)
+        {
+            bigNprime[mu][k] = st->bigN[which][mu ^ k];
+            lambda[mu] += (double) bigNprime[mu][k] * \
+                          log( (double) probs->p[which][k] / (double) probs->total );
+        }
 
     } /* closes off the for (mu = 0; mu <= 255; mu++) loop */
 
