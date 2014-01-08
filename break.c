@@ -193,8 +193,18 @@ int main(int argc, char **argv)
     FILE *fp;
     struct probs probs;
     struct state st;
-    int i;
-    uint8_t guessed[24];
+    int i, len;
+    uint8_t *guessed;
+
+    if (argc != 3)
+    {
+        fprintf(stderr, "usage: %s plaintext_length ciphertext_file");
+    }
+    
+    len = atoi(argv[1]);
+    guessed = malloc(len);
+    assert (guessed != NULL);
+
     fp = fopen("RC4_keystream_dist_2_45.txt","r");
     if (fp == NULL)
     {
@@ -206,18 +216,18 @@ int main(int argc, char **argv)
     fclose(fp);
 
 
-    fp = fopen("raw-encrypted-shit","r");
+    fp = fopen(argv[2],"r");
     if (fp == NULL)
     {
-        perror("error opening turds");
+        perror("error opening ciphertext file");
         exit(-1);
     }
-    read_ciphertext(fp, 23, &st);
-    for (i = 0; i < 23; i ++)
+    read_ciphertext(fp, len, &st);
+    for (i = 0; i < len; i ++)
     {
         guessed[i] = guess_byte(i , &st, &probs);
     }
-    guessed[23] = 0;
+    guessed[len = 0;
     printf("%s", guessed);
     return 0;
 }
