@@ -13,7 +13,7 @@
 int main()
 {
     unsigned char plaintext [] = "hello world!!!!!!!!!!!!";
-    uint8_t key [128];
+    uint8_t key [16];
     RC4_KEY actual_key;
     uint8_t *encrypted, *hexed_encrypted;
     int result;
@@ -35,10 +35,10 @@ int main()
 
     for (i = 0; i < iters; i++)
     {
-        result = RAND_bytes(key, 128);
+        result = RAND_bytes(key, 16);
         assert(result == 1);
 
-        RC4_set_key(&actual_key, 128, key);
+        RC4_set_key(&actual_key, 16, key);
 
         RC4(&actual_key, len, plaintext, encrypted);
         
