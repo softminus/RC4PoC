@@ -80,7 +80,7 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 
     } /* closes off the for (mu = 0; mu <= 255; mu++) loop */
 
-    maxlambda = 0.0;
+    maxlambda = -INFINITY;
     maxmu = 0;
     for (mu = 0; mu <= 255; mu ++)
     {
