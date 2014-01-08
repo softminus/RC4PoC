@@ -1,4 +1,4 @@
-/* breaks RC4 given hella plaintexts of the same plaintext */
+/* breaks RC4 given hella ciphertexts of the same plaintext */
 
 #include <assert.h>
 #include <openssl/rc4.h>
