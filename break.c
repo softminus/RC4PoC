@@ -139,6 +139,17 @@ void ciphertext_freqstat(uint8_t *ciphertext, size_t len, struct state *st)
     }
 }
 
+void clear_state(struct state *st)
+{
+    int i, j;
+    for (i = 0 ; i <= 255; i++)
+    {
+        for (j = 0 ; j <= 255; j++)
+        {
+            st->bigN[i][j] = 0;
+        }
+    }
+}
 
 uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 {
@@ -181,6 +192,7 @@ int main(int argc, char **argv)
 {
     FILE *fp;
     struct probs probs;
+    struct state st;
     fp = fopen("RC4_keystream_dist_2_45.txt","r");
     if (fp == NULL)
     {
@@ -190,5 +202,15 @@ int main(int argc, char **argv)
 
     read_probs(fp, &probs);
     fclose(fp);
+
+
+    fp = fopen("raw-encrypted-shit","r");
+    if (fp == NULL)
+    {
+        perror("error opening turds");
+        exit(-1);
+    }
+    read_ciphertext(fp, 23, &st);
+
     return 0;
 }
