@@ -1,7 +1,7 @@
 /* this file encrypts the same plaintext with RC4 with a bunch of 
    different and random keys */
 
-/* copyright (c) 2014 Matilda <heinousbutch@gmail.com. licensed under 
+/* copyright (c) 2014 Kia <. licensed under 
  the terms of the ISC license. */
 #include <assert.h>
 #include <openssl/rc4.h>

@@ -1,7 +1,7 @@
 /* this file handles conversion between raw bytes and base64 and raw bytes and
    hex encoding */
 
-/* this file is copyright 2014 Matilda <heinousbutch@gmail.com> and licensed
+/* this file is copyright 2014 Kia <> and licensed
    under the terms of the ISC license. */
 
 #include <string.h>

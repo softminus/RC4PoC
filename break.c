@@ -1,6 +1,6 @@
 /* breaks RC4 given hella ciphertexts of the same plaintext */
 
-/* copyright (c) 2014 Matilda <heinousbutch@gmail.com. licensed under 
+/* copyright (c) 2014 Kia <. licensed under 
  the terms of the ISC license. */
 #include <assert.h>
 #include <openssl/rc4.h>
@@ -198,7 +198,8 @@ int main(int argc, char **argv)
 
     if (argc != 3)
     {
-        fprintf(stderr, "usage: %s plaintext_length ciphertext_file");
+        fprintf(stderr, "usage: %s plaintext_length ciphertext_file\n",argv[0]);
+        exit(-1);
     }
     
     len = atoi(argv[1]);
