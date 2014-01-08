@@ -227,7 +227,7 @@ int main(int argc, char **argv)
     {
         guessed[i] = guess_byte(i , &st, &probs);
     }
-    guessed[len = 0;
+    guessed[len] = 0;
     printf("%s", guessed);
     return 0;
 }
