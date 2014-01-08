@@ -20,7 +20,8 @@ int main()
     uint8_t *encrypted, *hexed_encrypted;
     int result;
     uint64_t i, iters;
-    iters = 4294967296; /* 2^32 */
+    iters = 67108864; /* 2^26 */
+    /* iters = 4294967296; */
     
     size_t len, hexlen;
 
