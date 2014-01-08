@@ -90,6 +90,13 @@ void read_probs(FILE *fp, struct probs *probs)
         line_n++;
     }
 
+    probs->total = 0;
+
+    for(i = 0; i <= 255; i++)
+    {
+        probs->total += probs->p[0][i];
+    }
+
 
 }
 
