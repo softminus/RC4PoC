@@ -73,9 +73,12 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
     
     for (k = 0; k <= 255; k++)
     {
-        lambda[mu] += (double) bigNprime[mu][k] * log(((double) probs->p[which][k])/ (double) probs->total);
+        lambda[mu] += (double) bigNprime[mu][k] * \
+            log(((double) probs->p[which][k])/ (double) probs->total);
+    
     }
     }
+
     maxlambda = 0.0;
     maxmu = 0;
     for (mu = 0; mu <= 255; mu ++)
@@ -86,7 +89,8 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
             maxlambda = lambda[mu];
         }
     }
-    returm maxmu;
+
+    return maxmu;
 }
 
 int main(int argc, char **argv)
