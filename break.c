@@ -107,6 +107,7 @@ void read_ciphertext(FILE *fp, size_t ciphertext_len, struct state *st)
     size_t result;
     buf = malloc(ciphertext_len);
     assert (buf != NULL);
+    clear_state(st);
 
     while (1)
     {
@@ -159,15 +160,11 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 
     for (mu = 0; mu <= 255; mu++)
     {
-        for (k = 0; k <= 255; k++)
-        {
-            bigNprime[mu][k] = st->bigN[which][mu ^ k];
-        }
-
     lambda [mu] = 0.0;
     
     for (k = 0; k <= 255; k++)
     {
+        bigNprime[mu][k] = st->bigN[which][mu ^ k];
         lambda[mu] += (double) bigNprime[mu][k] * \
             log( (double) probs->p[which][k] / (double) probs->total );
     }
@@ -193,6 +190,8 @@ int main(int argc, char **argv)
     FILE *fp;
     struct probs probs;
     struct state st;
+    int i;
+    uint8_t guessed[24];
     fp = fopen("RC4_keystream_dist_2_45.txt","r");
     if (fp == NULL)
     {
@@ -204,13 +203,18 @@ int main(int argc, char **argv)
     fclose(fp);
 
 
-    fp = fopen("raw-encrypted-shit","r");
+    fp = fopen("trimmed","r");
     if (fp == NULL)
     {
         perror("error opening turds");
         exit(-1);
     }
     read_ciphertext(fp, 23, &st);
-
+    for (i = 0; i < 23; i ++)
+    {
+        guessed[i] = guess_byte(i , &st, &probs);
+    }
+    guessed[23] = 0;
+    printf("%s", guessed);
     return 0;
 }
