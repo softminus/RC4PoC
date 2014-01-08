@@ -154,7 +154,7 @@ void clear_state(struct state *st)
 
 uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 {
-    uint8_t mu, k, maxmu;
+    int mu, k, maxmu;
     uint64_t bigNprime[256][256];
     double lambda[256], maxlambda;
 
@@ -204,7 +204,7 @@ int main(int argc, char **argv)
     fclose(fp);
 
 
-    fp = fopen("trimmed","r");
+    fp = fopen("raw-encrypted-shit","r");
     if (fp == NULL)
     {
         perror("error opening turds");
