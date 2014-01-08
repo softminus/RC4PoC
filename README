@@ -1,2 +1,12 @@
 implements the single-byte byte attack on RC4 as described in 
 http://www.isg.rhul.ac.uk/tls/RC4biases.pdf
+
+
+you don't need to generate the full 2^32 ciphertexts, that just guarantees
+recovery on all plaintext bytes.
+
+i generated 97755319 = 2^26.54 ciphertexts (why that odd number? i control-C'd
+the process 'cuz i got bored) and recovered "hello porld-,!!!!!!!!!!" from
+"hello world!!!!!!!!!!!!", so as long as you don't mind a few bytes error'd,
+you can generate way less than 2^32 ciphertexts and be fine.
+
