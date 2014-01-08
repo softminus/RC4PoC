@@ -40,8 +40,59 @@ struct probs {
 */
 void read_probs(FILE *fp, struct probs *probs)
 {
+    assert (fp != NULL);
+    char *line = NULL, *saveptr, *token;
+    size_t len = 0;
     ssize_t result;
+
+    int line_n = 0, i, j;
+
+    while ((result = getline(&line, &len, fp)) != -1)
+    {
+        if (line[0] == '\n')
+        {
+            line_n++;
+            continue;
+        }
+        if (line[0] == '%')
+        {
+            line_n++;
+            continue;
+        }
+        
+        token = strtok_r(line, " ", &saveptr);
+        if(token == NULL)
+        {
+            fprintf(stderr, "no field # 1 at line %d", line_n);
+            exit(-1);
+        }
+        
+        i = atoi(token);
+
+        token = strtok_r(NULL, " ", &saveptr);
+
+        if(token == NULL)
+        {
+            fprintf(stderr, "no field # 2 at line %d", line_n);
+            exit(-1);
+        }
+        j = atoi(token);
+
+        token = strtok_r(NULL, " ", &saveptr);
+
+        if(token == NULL)
+        {
+            fprintf(stderr, "no field # 3 at line %d", line_n);
+            exit(-1);
+        }
+        probs->p[i][j] = atoll(token);
+
+        line_n++;
+    }
+
+
 }
+
 
 
 
@@ -96,5 +147,16 @@ uint8_t guess_byte(uint8_t which, struct state *st, struct probs *probs)
 
 int main(int argc, char **argv)
 {
+    FILE *fp;
+    struct probs probs;
+    fp = fopen("RC4_keystream_dist_2_45.txt","r");
+    if (fp == NULL)
+    {
+        perror("error opening RC4_keystream_dist_2_45.txt");
+        exit(-1);
+    }
+
+    read_probs(fp, &probs);
+    printf("%d\n",probs.p[0][0]);
     return 0;
 }
