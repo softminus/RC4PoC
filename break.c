@@ -101,6 +101,31 @@ void read_probs(FILE *fp, struct probs *probs)
 }
 
 
+void read_ciphertext(FILE *fp, size_t ciphertext_len, struct state *st)
+{
+    uint8_t *buf;
+    size_t result;
+    buf = malloc(ciphertext_len);
+    assert (buf != NULL);
+
+    while (1)
+    {
+        result = fread(buf, 1, ciphertext_len, fp);
+        if(result != ciphertext_len)
+        {
+            if (feof(fp))
+            {
+                return;
+            }
+
+            perror("read error");
+            exit(-1);
+        }
+        
+        ciphertext_freqstat(buf, ciphertext_len, st);
+    }
+
+}
 
 
 
@@ -164,6 +189,6 @@ int main(int argc, char **argv)
     }
 
     read_probs(fp, &probs);
-    printf("%d\n",probs.p[0][0]);
+    fclose(fp);
     return 0;
 }
