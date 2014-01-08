@@ -1,0 +1,2 @@
+implements the single-byte byte attack on RC4 as described in 
+http://www.isg.rhul.ac.uk/tls/RC4biases.pdf
