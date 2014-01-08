@@ -24,15 +24,16 @@ int main()
 
     len = strlen(plaintext);
     hexlen = len * 2;
+    fprintf(stderr, "length of the ciphertext is %d\n",len);
 
     assert (len < 255);
 
     encrypted = malloc(len);
     assert (encrypted != NULL);
 
-    hexed_encrypted = malloc(hexlen + 1); 
+/*    hexed_encrypted = malloc(hexlen + 1); 
     assert (hexed_encrypted != NULL);
-
+*/
     for (i = 0; i < iters; i++)
     {
         result = RAND_bytes(key, 16);
@@ -41,12 +42,13 @@ int main()
         RC4_set_key(&actual_key, 16, key);
 
         RC4(&actual_key, len, plaintext, encrypted);
-        
-        hex_a_buffer(encrypted, len, hexed_encrypted);
+        write(1, encrypted, len); 
+/*        hex_a_buffer(encrypted, len, hexed_encrypted);
 
         write(1, hexed_encrypted, hexlen);
         write(1, "\n", 1);
-        
+  */
+
     }
 
     return 0; 
